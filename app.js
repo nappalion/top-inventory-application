@@ -10,11 +10,11 @@ const assetsPath = path.join(__dirname, "/public");
 app.use(express.static(assetsPath));
 app.use(express.urlencoded({ extended: true }));
 
-const homeController = require("./controllers/homeController");
+const homeRoutes = require("./routes/homeRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const itemRoutes = require("./routes/itemRoutes");
 
-app.get("/", homeController.getCategoriesItems);
+app.use("/", homeRoutes);
 app.use("/category", categoryRoutes);
 app.use("/item", itemRoutes);
 

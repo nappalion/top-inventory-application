@@ -8,7 +8,7 @@
   <body>
     <a href="/">Back</a>
     <h1>Update Category</h1>
-    <form action="/category/update/<%= id %>" method="POST">
+    <form action="/category/update/redirect/<%= id %>" method="POST">
       <label for="name">Name</label>
       <input type="text" id="name" name="name" value=<%= name %> required/>
       <button type="submit">Update category</button>

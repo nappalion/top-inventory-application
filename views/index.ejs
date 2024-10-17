@@ -9,9 +9,12 @@
   <body>
     <%- include('./components/navbar', { links: links }) %> 
     <%- include('./components/action-bar') %> 
+    <% if (category_id && category_name) { %>
+      <%- include('./components/update-category-confirm', {category_id: category_id, category_name: category_name}) %> 
+    <% } %>
     <% for (const category_id in items) { %>
       <h1><%= categories[category_id] %></h1>
-      <a href='/category/update/<%= category_id %>'>Edit category</a>
+      <a href='/category/update/<%= category_id %>/<%= category_name %>'>Edit category</a>
       <div>
         <% for (const item of items[category_id]) { %>
           <p><%= item.name %></p>

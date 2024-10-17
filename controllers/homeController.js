@@ -2,6 +2,8 @@ const db = require("../db/queries");
 const { links } = require("../data/links");
 
 async function getCategoriesItems(req, res) {
+  const { category_id, category_name } = req.params;
+
   const dbRows = await db.getAllItems();
 
   const items = {}; // category_id: [] of item
@@ -38,6 +40,8 @@ async function getCategoriesItems(req, res) {
     categories: categories,
     items: items,
     noCategoryItems: noCategoryItems,
+    category_id: category_id,
+    category_name: category_name,
   });
 }
 

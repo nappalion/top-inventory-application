@@ -1,0 +1,11 @@
+<div>
+  <h1>Delete this category?</h1>
+  <p>You will not be able to undo this action</p>
+  <form action="/category/update/<%= category_id %>" method="POST">
+    <!-- <label for="admin-password">Admin Password</label>
+    <input type="text" name="admin-password" id="admin-password"/> -->
+    <input type="hidden" name="name" value=<%= category_name %>>
+    <a href="/">Cancel</a>
+    <button type="submit">Update category</button>
+  </form>
+</div>
