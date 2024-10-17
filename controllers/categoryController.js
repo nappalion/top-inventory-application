@@ -30,7 +30,7 @@ async function updatePostRedirect(req, res) {
   const { id } = req.params;
   const { name } = req.body;
 
-  res.redirect(`/${id}/${name}`);
+  res.redirect(`/category_confirm/update/${id}/${name}`);
 }
 
 async function updatePost(req, res) {
@@ -42,7 +42,19 @@ async function updatePost(req, res) {
   res.redirect(`/`);
 }
 
-async function deletePost(req, res) {}
+async function deleteGetRedirect(req, res) {
+  const { id, name } = req.params;
+
+  res.redirect(`/category_confirm/delete/${id}/${name}`);
+}
+
+async function deletePost(req, res) {
+  const { id } = req.params;
+
+  await db.deleteCategory(id);
+
+  res.redirect(`/`);
+}
 
 module.exports = {
   createGet,
@@ -50,5 +62,6 @@ module.exports = {
   updateGet,
   updatePostRedirect,
   updatePost,
+  deleteGetRedirect,
   deletePost,
 };

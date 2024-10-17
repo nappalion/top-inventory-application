@@ -1,0 +1,10 @@
+<div>
+  <h1>Delete category: "<%= category_name %>"?</h1>
+  <p>You will not be able to undo this action</p>
+  <form action="/category/delete/<%= category_id %>" method="POST">
+    <!-- <label for="admin-password">Admin Password</label>
+    <input type="text" name="admin-password" id="admin-password"/> -->
+    <a href="/">Cancel</a>
+    <button type="submit">Delete category</button>
+  </form>
+</div>

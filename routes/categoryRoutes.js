@@ -15,4 +15,6 @@ router.post("/update/:id", categoryController.updatePost);
 
 router.post("/delete/:id", categoryController.deletePost);
 
+router.get("/delete/redirect/:id/:name", categoryController.deleteGetRedirect);
+
 module.exports = router;
