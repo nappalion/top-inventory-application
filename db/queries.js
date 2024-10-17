@@ -23,15 +23,19 @@ async function getAllItems() {
   const { rows } = await pool
     .query(
       `SELECT 
-    c.name AS category_name,
-    c.id AS category_id,
-    i.name AS item_name,
-    i.image_data AS item_image_data
-    FROM categories c 
-    LEFT JOIN items i ON c.id = i.category_id
-    ORDER BY c.name`
+      c.name AS category_name,
+      c.id AS category_id,
+      i.id AS item_id,
+      i.name AS item_name,
+      i.image_data AS item_image_data
+      FROM categories c 
+      LEFT JOIN items i ON c.id = i.category_id
+      ORDER BY c.name`
     )
-    .then(() => console.log(`Retrieved all items.`))
+    .then((res) => {
+      console.log(`Retrieved all items.`);
+      return res;
+    })
     .catch((err) => {
       throw err;
     });
@@ -42,7 +46,15 @@ async function getAllItems() {
 async function getItem(id) {
   checkIdError(id);
 
-  const { rows } = await pool.query("SELECT * FROM items WHERE id=$1", [id]);
+  const { rows } = await pool
+    .query("SELECT * FROM items WHERE id=$1", [id])
+    .then((res) => {
+      console.log(`Retrieved item with id: ${id}.`);
+      return res;
+    })
+    .catch((err) => {
+      throw err;
+    });
   return rows[0];
 }
 
@@ -120,23 +132,33 @@ async function deleteItem(id) {
 
 // Category Queries
 async function getAllCategories() {
-  await pool
+  const { rows } = await pool
     .query(`SELECT * FROM categories`)
-    .then(() => console.log(`Retrieved all categories.`))
+    .then((res) => {
+      console.log(`Retrieved all categories.`);
+      return res;
+    })
     .catch((err) => {
       throw err;
     });
+
+  return rows;
 }
 
 async function getCategory(id) {
   checkIdError(id);
 
-  await pool
+  const { rows } = await pool
     .query(`SELECT * FROM categories WHERE categories.id = $1`, [id])
-    .then(() => console.log(`Retrieved all categories.`))
+    .then((res) => {
+      console.log(`Retrieved all categories.`);
+      return res;
+    })
     .catch((err) => {
       throw err;
     });
+
+  return rows[0];
 }
 
 async function createCategory(name) {

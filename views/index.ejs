@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
   </head>
+
   <body>
-    <%- include('./components/navbar', {links: links}) %>
+    <%- include('./components/navbar', { links: links }) %> 
+    <% for (const category_name in items) { %>
+      <h1><%= category_name %></h1>
+      <div>
+        <% for (const item of items[category_name]) { %>
+          <p><%= item.name %></p>
+        <% }%>
+      </div>
+    <% } %>
+    
   </body>
 </html>
