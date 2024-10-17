@@ -6,9 +6,15 @@ async function createGet(req, res) {
   });
 }
 
-async function createPost(req, res) {}
+async function createPost(req, res) {
+  
+}
 
-async function updateGet(req, res) {}
+async function updateGet(req, res) {
+  res.render("update-category", {
+    title: "Update Category",
+  });
+}
 
 async function updatePost(req, res) {}
 
