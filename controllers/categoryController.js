@@ -7,7 +7,11 @@ async function createGet(req, res) {
 }
 
 async function createPost(req, res) {
-  
+  const { name } = req.body;
+
+  await db.createCategory(name);
+
+  res.redirect("/");
 }
 
 async function updateGet(req, res) {

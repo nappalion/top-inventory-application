@@ -8,6 +8,7 @@
 
   <body>
     <%- include('./components/navbar', { links: links }) %> 
+    <%- include('./components/action-bar') %> 
     <% for (const category_name in items) { %>
       <h1><%= category_name %></h1>
       <div>

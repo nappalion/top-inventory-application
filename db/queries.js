@@ -165,7 +165,7 @@ async function createCategory(name) {
   checkNameError(name);
 
   await pool
-    .query(`INSERT INTO categories (name) VALUES ($1)`, values)
+    .query(`INSERT INTO categories (name) VALUES ($1)`, [name])
     .then(() => console.log(`Inserted category: ${name}.`))
     .catch((err) => {
       throw err;
