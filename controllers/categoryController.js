@@ -15,12 +15,25 @@ async function createPost(req, res) {
 }
 
 async function updateGet(req, res) {
+  const { id } = req.params;
+
+  const { name } = await db.getCategory(id);
+
   res.render("update-category", {
     title: "Update Category",
+    id: id,
+    name: name,
   });
 }
 
-async function updatePost(req, res) {}
+async function updatePost(req, res) {
+  const { id } = req.params;
+  const { name } = req.body;
+
+  await db.updateCategory(id, name);
+
+  res.redirect("/");
+}
 
 async function deletePost(req, res) {}
 

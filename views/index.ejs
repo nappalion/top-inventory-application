@@ -9,14 +9,20 @@
   <body>
     <%- include('./components/navbar', { links: links }) %> 
     <%- include('./components/action-bar') %> 
-    <% for (const category_name in items) { %>
-      <h1><%= category_name %></h1>
+    <% for (const category_id in items) { %>
+      <h1><%= categories[category_id] %></h1>
+      <a href='/category/update/<%= category_id %>'>Edit category</a>
       <div>
-        <% for (const item of items[category_name]) { %>
+        <% for (const item of items[category_id]) { %>
           <p><%= item.name %></p>
         <% }%>
       </div>
     <% } %>
-    
+    <h1>No Category</h1>
+      <div>
+        <% for (const item of noCategoryItems) { %>
+          <p><%= item.name %></p>
+        <% }%>
+      </div>
   </body>
 </html>

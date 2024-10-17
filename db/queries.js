@@ -173,7 +173,7 @@ async function createCategory(name) {
 }
 
 async function updateCategory(id, name) {
-  idError(id);
+  checkIdError(id);
   checkNameError(name);
 
   await pool

@@ -4,7 +4,8 @@ const { links } = require("../data/links");
 async function getCategoriesItems(req, res) {
   const dbRows = await db.getAllItems();
 
-  const items = {};
+  const items = {}; // category_id: [] of item
+  const categories = {}; // category_id: category_name
   const noCategoryItems = [];
 
   for (const dbRow of dbRows) {
@@ -18,24 +19,25 @@ async function getCategoriesItems(req, res) {
       category_id: category_id,
     };
 
-    if (!category_name) {
+    if (!category_id) {
       noCategoryItems.push(item);
       continue;
     }
 
-    if (!(category_name in dbRows)) {
-      items[category_name] = [];
+    if (!(category_id in categories)) {
+      categories[category_id] = category_name;
+      items[category_id] = [];
     }
 
-    items[category_name].push(item);
+    items[category_id].push(item);
   }
-
-  items["No Category"] = noCategoryItems;
 
   res.render("index", {
     title: "Home",
     links: links,
+    categories: categories,
     items: items,
+    noCategoryItems: noCategoryItems,
   });
 }
 
