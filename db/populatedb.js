@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS items (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(255) NOT NULL,
   quantity INT NOT NULL DEFAULT 0,
-  image_data BYTEA,
+  image_data VARCHAR(255),
   category_id INT,
   CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(id)
 )

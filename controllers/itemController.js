@@ -1,4 +1,5 @@
 const db = require("../db/queries");
+const firebaseStorage = require("../firebaseStorage");
 
 async function createGet(req, res) {
   const categories = await db.getAllCategories();
@@ -9,21 +10,37 @@ async function createGet(req, res) {
   });
 }
 
+async function uploadFile(fileBuffer) {
+  const bucket = firebaseStorage.bucket();
+  const randomFileName = `${crypto.randomUUID()}.jpg`;
+  const file = bucket.file(randomFileName);
+
+  await file.save(fileBuffer, {
+    metadata: { contentType: "image/jpeg" },
+    public: true,
+  });
+
+  const fileUrl = `https://storage.googleapis.com/${bucket.name}/${randomFileName}`;
+  return fileUrl;
+}
+
 async function createPost(req, res) {
   const { name, quantity, category_id } = req.body;
-  const image_file = req.file;
   const new_category_id = parseInt(category_id);
 
-  const image_buffer = image_file ? image_file.buffer : null;
+  const fileBuffer = req.file.buffer;
+  const fileUrl = await uploadFile(fileBuffer);
 
   const itemData = {
     name: name,
     quantity: quantity,
-    image_data: image_buffer,
+    image_data: fileUrl,
     category_id: new_category_id,
   };
 
   await db.createItem(itemData);
+
+  res.redirect(`/`);
 }
 
 async function updateGet(req, res) {}
