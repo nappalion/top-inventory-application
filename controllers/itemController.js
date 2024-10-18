@@ -44,7 +44,16 @@ async function createPost(req, res) {
   res.redirect(`/`);
 }
 
-async function updateGet(req, res) {}
+async function updateGet(req, res) {
+  const { id } = req.params;
+  const categories = await db.getAllCategories();
+  const item = await db.getItem(id);
+  res.render("update-item", {
+    title: "Update Item",
+    categories: categories,
+    item: item,
+  });
+}
 
 async function updatePost(req, res) {}
 
