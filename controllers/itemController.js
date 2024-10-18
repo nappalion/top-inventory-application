@@ -1,4 +1,5 @@
 const db = require("../db/queries");
+const crypto = require("crypto");
 const firebaseStorage = require("../firebaseStorage");
 
 async function createGet(req, res) {
