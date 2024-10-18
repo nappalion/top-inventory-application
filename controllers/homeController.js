@@ -20,11 +20,17 @@ async function getCategoriesItems(req, res) {
       item_image_data,
     } = dbRow;
 
+    let converted_img_data;
+    if (item_image_data) {
+      const base64_img_data = item_image_data.toString("base64");
+      converted_img_data = `data:image/jpeg;base64,${base64_img_data}`;
+    }
+
     const item = {
       id: item_id,
       name: item_name,
       quantity: item_quantity,
-      image_data: item_image_data,
+      image_data: converted_img_data,
       category_id: category_id,
     };
 
