@@ -27,6 +27,7 @@ async function getAllItems() {
       c.id AS category_id,
       i.id AS item_id,
       i.name AS item_name,
+      i.quantity AS item_quantity,
       i.image_data AS item_image_data
       FROM categories c 
       LEFT JOIN items i ON c.id = i.category_id

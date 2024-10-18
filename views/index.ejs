@@ -21,6 +21,12 @@
       <div>
         <% for (const item of items[category_id]) { %>
           <p><%= item.name %></p>
+          <p><%= item.quantity %></p>
+          <% if (item.image_data) { %>
+            <img src="<%= item.image %>" alt="<%= item.name %>" style="max-width: 200px;"/>
+          <% } else { %>
+            <p>No image available</p>
+          <% } %>
         <% }%>
       </div>
     <% } %>

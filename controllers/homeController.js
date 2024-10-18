@@ -11,12 +11,19 @@ async function getCategoriesItems(req, res) {
   const noCategoryItems = [];
 
   for (const dbRow of dbRows) {
-    const { category_name, category_id, item_id, item_name, item_image_data } =
-      dbRow;
+    const {
+      category_name,
+      category_id,
+      item_id,
+      item_name,
+      item_quantity,
+      item_image_data,
+    } = dbRow;
 
     const item = {
       id: item_id,
       name: item_name,
+      quantity: item_quantity,
       image_data: item_image_data,
       category_id: category_id,
     };
