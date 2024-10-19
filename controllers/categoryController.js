@@ -1,4 +1,14 @@
 const db = require("../db/queries");
+const { body, validationResult } = require("express-validator");
+
+const lengthErr = "must be between 1 and 30 characters.";
+
+const validateCategory = [
+  body("name")
+    .trim()
+    .isLength({ min: 1, max: 30 })
+    .withMessage(`Name ${lengthErr}`),
+];
 
 async function createGet(req, res) {
   res.render("create-category", {
@@ -6,13 +16,24 @@ async function createGet(req, res) {
   });
 }
 
-async function createPost(req, res) {
-  const { name } = req.body;
+const createPost = [
+  validateCategory,
+  async (req, res) => {
+    const errors = validationResult(req);
 
-  await db.createCategory(name);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("create-category", {
+        title: "Create New Category",
+        errors: errors.array(),
+      });
+    }
 
-  res.redirect("/");
-}
+    const { name } = req.body;
+    await db.createCategory(name);
+
+    res.redirect("/");
+  },
+];
 
 async function updateGet(req, res) {
   const { id } = req.params;
@@ -26,15 +47,29 @@ async function updateGet(req, res) {
   });
 }
 
-async function updatePostRedirect(req, res) {
-  const category = req.body;
+const updatePostRedirect = [
+  validateCategory,
+  (req, res) => {
+    const category = req.body;
 
-  const queryString = `category=${encodeURIComponent(
-    JSON.stringify(category)
-  )}`;
+    const errors = validationResult(req);
 
-  res.redirect(`/category_confirm/update/?${queryString}`);
-}
+    if (!errors.isEmpty()) {
+      return res.status(400).render("update-category", {
+        title: "Update Category",
+        id: category.id,
+        name: category.name,
+        errors: errors.array(),
+      });
+    }
+
+    const queryString = `category=${encodeURIComponent(
+      JSON.stringify(category)
+    )}`;
+
+    res.redirect(`/category_confirm/update/?${queryString}`);
+  },
+];
 
 async function updatePost(req, res) {
   const { id } = req.params;
