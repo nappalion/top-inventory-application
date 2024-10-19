@@ -22,15 +22,15 @@
       <a href='/category/delete/redirect/<%= category_id %>/<%= categories[category_id] %>'>Delete category</a>
       <div>
         <% for (const item of items[category_id]) { %>
-          <p><%= item.name %></p>
-          <p><%= item.quantity %></p>
-          <% if (item.image_data) { %>
-            <img src="<%= item.image_data %>" alt="<%= item.name %>" style="max-width: 200px;"/>
-          <% } else { %>
-            <p>No image available</p>
+            <p><%= item.name %></p>
+            <p><%= item.quantity %></p>
+            <% if (item.image_data) { %>
+              <img src="<%= item.image_data %>" alt="<%= item.name %>" style="max-width: 200px;"/>
+            <% } else { %>
+              <p>No image available</p>
+            <% } %>
+            <a href='/item/update/<%= item.id %>'>Edit item</a>
           <% } %>
-          <a href='/item/update/<%= item.id %>'>Edit item</a>
-        <% }%>
       </div>
     <% } %>
     <h1>No Category</h1>

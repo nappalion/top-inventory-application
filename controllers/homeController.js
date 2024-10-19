@@ -46,8 +46,12 @@ async function getCategoriesItems(req, res) {
       items[category_id] = [];
     }
 
-    items[category_id].push(item);
+    if (item.id) {
+      items[category_id].push(item);
+    }
   }
+
+  console.log(items);
 
   res.render("index", {
     title: "Home",
