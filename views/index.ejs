@@ -10,6 +10,7 @@
   <body>
     <%- include('./components/navbar', { links: links }) %> 
     <%- include('./components/action-bar') %> 
+    
     <% if (category && category_action == "update") { %>
       <%- include('./components/update-category-confirm', {category: category}) %> 
     <% } else if (category && category_action == "delete") { %>
@@ -19,6 +20,7 @@
     <% } else if (item && item_action == "delete") { %>
       <%- include('./components/delete-item-confirm', {item: item}) %>    
     <% } %>
+
     <% for (const category_id in items) { %>
       <h1><%= categories[category_id] %></h1>
       <a href='/category/update/<%= category_id %>%>'>Edit category</a>
@@ -54,4 +56,7 @@
         <% }%>
       </div>
   </body>
+  <script>
+
+  </script>
 </html>
