@@ -55,8 +55,6 @@ async function getCategoriesItems(req, res) {
     }
   }
 
-  console.log(items);
-
   res.render("index", {
     title: "Home",
     links: links,

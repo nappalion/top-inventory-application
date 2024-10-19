@@ -32,8 +32,11 @@ async function createPost(req, res) {
   const { name, quantity, category_id } = req.body;
   const new_category_id = parseInt(category_id);
 
-  const fileBuffer = req.file.buffer;
-  const fileUrl = await uploadFile(fileBuffer);
+  let fileUrl;
+  if (req.file) {
+    const fileBuffer = req.file.buffer;
+    fileUrl = await uploadFile(fileBuffer);
+  }
 
   const itemData = {
     name: name,
@@ -85,7 +88,19 @@ async function updatePost(req, res) {
   res.redirect(`/`);
 }
 
-async function deletePost(req, res) {}
+async function deleteGetRedirect(req, res) {
+  const { item } = req.query;
+
+  res.redirect(`/item_confirm/delete/?item=${item}`);
+}
+
+async function deletePost(req, res) {
+  const { id } = req.params;
+
+  await db.deleteItem(id);
+
+  res.redirect(`/`);
+}
 
 module.exports = {
   createGet,
@@ -94,4 +109,5 @@ module.exports = {
   updatePostRedirect,
   updatePost,
   deletePost,
+  deleteGetRedirect,
 };

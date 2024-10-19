@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
+    
   </head>
 
   <body>
@@ -15,6 +16,8 @@
       <%- include('./components/delete-category-confirm', {category: category}) %> 
     <% } else if (item && item_action == "update") { %>
       <%- include('./components/update-item-confirm', {item: item}) %>    
+    <% } else if (item && item_action == "delete") { %>
+      <%- include('./components/delete-item-confirm', {item: item}) %>    
     <% } %>
     <% for (const category_id in items) { %>
       <h1><%= categories[category_id] %></h1>
@@ -30,6 +33,17 @@
               <p>No image available</p>
             <% } %>
             <a href='/item/update/<%= item.id %>'>Edit item</a>
+            <a href='/item/delete/redirect/?item=<%=  
+              encodeURIComponent(
+                JSON.stringify({
+                  id: item.id, 
+                  name: item.name, 
+                  quantity: item.quantity, 
+                  ...(item.image_data ? { image_data: item.image_data } : {}),
+                  ...(item.category_id ? { category_id: item.category_id } : {})
+                  })
+                )
+              %>'>Delete item</a>
           <% } %>
       </div>
     <% } %>

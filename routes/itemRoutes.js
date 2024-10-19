@@ -19,6 +19,8 @@ router.post(
 
 router.post("/update/:id", itemController.updatePost);
 
+router.get("/delete/redirect", itemController.deleteGetRedirect);
+
 router.post("/delete/:id", itemController.deletePost);
 
 module.exports = router;

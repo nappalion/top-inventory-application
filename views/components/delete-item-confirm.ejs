@@ -1,7 +1,8 @@
 <div>
-  <h1>Update item "<%= item.name %>"?</h1>
+  <%- item.name %>
+  <h1>Delete item "<%= item.name %>"?</h1>
   <p>You will not be able to undo this action</p>
-  <form action="/item/update/<%= item.id %>" method="POST">
+  <form action="/item/delete/<%= item.id %>" method="POST">
     <!-- <label for="admin-password">Admin Password</label>
     <input type="text" name="admin-password" id="admin-password"/> -->
     <input type="hidden" name="name" value="<%= item.name %>" required>
@@ -13,6 +14,6 @@
       <input type="hidden" list="categories" id="category_id" value="<%= item.category_id %>" name="category_id" />
     <% } %>
     <a href="/">Cancel</a>
-    <button type="submit">Update item</button>
+    <button type="submit">Delete item</button>
   </form>
 </div>
