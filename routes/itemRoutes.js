@@ -11,6 +11,12 @@ router.post("/create", upload.single("image_data"), itemController.createPost);
 
 router.get("/update/:id", itemController.updateGet);
 
+router.post(
+  "/update/redirect",
+  upload.single("image_data"),
+  itemController.updatePostRedirect
+);
+
 router.post("/update/:id", itemController.updatePost);
 
 router.post("/delete/:id", itemController.deletePost);

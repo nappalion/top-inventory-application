@@ -13,6 +13,8 @@
       <%- include('./components/update-category-confirm', {category_id: category_id, category_name: category_name}) %> 
     <% } else if (category_id && category_name && category_action == "delete") { %>
       <%- include('./components/delete-category-confirm', {category_id: category_id, category_name: category_name}) %> 
+    <% } else if (item && item_action == "update") { %>
+      <%- include('./components/update-item-confirm', {item: item}) %>    
     <% } %>
     <% for (const category_id in items) { %>
       <h1><%= categories[category_id] %></h1>

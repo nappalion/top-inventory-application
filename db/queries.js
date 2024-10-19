@@ -91,7 +91,7 @@ async function createItem({ name, quantity, image_data, category_id }) {
 }
 
 async function updateItem(id, name, quantity, image_data, category_id) {
-  idError(id);
+  checkIdError(id);
   checkNameError(name);
   checkQuantityError(quantity);
 
@@ -107,7 +107,7 @@ async function updateItem(id, name, quantity, image_data, category_id) {
     fields.push(`category_id=$${values.length}`);
   }
 
-  values.append(id);
+  values.push(id);
   let query = `UPDATE items SET ${fields.join(",")} WHERE items.id=$${
     values.length
   }`;

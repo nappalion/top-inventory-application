@@ -12,6 +12,9 @@ async function createGet(req, res) {
 }
 
 async function uploadFile(fileBuffer) {
+  if (!fileBuffer) {
+    return null;
+  }
   const bucket = firebaseStorage.bucket();
   const randomFileName = `${crypto.randomUUID()}.jpg`;
   const file = bucket.file(randomFileName);
@@ -48,6 +51,7 @@ async function updateGet(req, res) {
   const { id } = req.params;
   const categories = await db.getAllCategories();
   const item = await db.getItem(id);
+
   res.render("update-item", {
     title: "Update Item",
     categories: categories,
@@ -55,7 +59,33 @@ async function updateGet(req, res) {
   });
 }
 
-async function updatePost(req, res) {}
+async function updatePostRedirect(req, res) {
+  let fileUrl;
+
+  if (req.file) {
+    const fileBuffer = req.file.buffer;
+    fileUrl = await uploadFile(fileBuffer);
+  } else {
+    fileUrl = req.body.old_image_data;
+  }
+
+  const item = { image_data: fileUrl, ...req.body };
+
+  const queryString = `item=${encodeURIComponent(JSON.stringify(item))}`;
+
+  const redirectUrl = `/item_confirm/update/?${queryString}`;
+
+  res.redirect(redirectUrl);
+}
+
+async function updatePost(req, res) {
+  const { id } = req.params;
+  const { name, quantity, image_data, category_id } = req.body;
+
+  await db.updateItem(id, name, quantity, image_data, category_id);
+
+  res.redirect(`/`);
+}
 
 async function deletePost(req, res) {}
 
@@ -63,6 +93,7 @@ module.exports = {
   createGet,
   createPost,
   updateGet,
+  updatePostRedirect,
   updatePost,
   deletePost,
 };
