@@ -28,5 +28,16 @@
       <input list="categories" id="category_id" type="number" name="category_id" value="<%= item.category_id %>"/>
       <button type="submit">Update item</button>
     </form>
+    <a href='/item/delete/redirect/?item=<%=  
+      encodeURIComponent(
+        JSON.stringify({
+          id: item.id, 
+          name: item.name, 
+          quantity: item.quantity, 
+          ...(item.image_data ? { image_data: item.image_data } : {}),
+          ...(item.category_id ? { category_id: item.category_id } : {})
+          })
+        )
+      %>'>Delete item</a>
   </body>
 </html>
