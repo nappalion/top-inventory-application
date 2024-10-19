@@ -73,9 +73,7 @@ async function updatePostRedirect(req, res) {
 
   const queryString = `item=${encodeURIComponent(JSON.stringify(item))}`;
 
-  const redirectUrl = `/item_confirm/update/?${queryString}`;
-
-  res.redirect(redirectUrl);
+  res.redirect(`/item_confirm/update/?${queryString}`);
 }
 
 async function updatePost(req, res) {

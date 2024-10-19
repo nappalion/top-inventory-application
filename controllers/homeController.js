@@ -2,14 +2,18 @@ const db = require("../db/queries");
 const { links } = require("../data/links");
 
 async function getCategoriesItems(req, res) {
-  const { category_id, category_name, category_action, item_action } =
-    req.params;
+  const { category_action, item_action } = req.params;
 
   const query = req.query;
 
   let query_item;
   if (query.item) {
     query_item = JSON.parse(query.item);
+  }
+
+  let query_category;
+  if (query.category) {
+    query_category = JSON.parse(query.category);
   }
 
   const dbRows = await db.getAllItems();
@@ -59,8 +63,7 @@ async function getCategoriesItems(req, res) {
     categories: categories,
     items: items,
     noCategoryItems: noCategoryItems,
-    category_id: category_id,
-    category_name: category_name,
+    category: query_category,
     category_action: category_action,
     item: query_item,
     item_action: item_action,

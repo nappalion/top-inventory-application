@@ -1,10 +1,10 @@
 <div>
-  <h1>Update category to "<%= category_name %>"?</h1>
+  <h1>Update category to "<%= category.name %>"?</h1>
   <p>You will not be able to undo this action</p>
-  <form action="/category/update/<%= category_id %>" method="POST">
+  <form action="/category/update/<%= category.id %>" method="POST">
     <!-- <label for="admin-password">Admin Password</label>
     <input type="text" name="admin-password" id="admin-password"/> -->
-    <input type="hidden" name="name" value=<%= category_name %>>
+    <input type="hidden" name="name" value="<%= category.name %>">
     <a href="/">Cancel</a>
     <button type="submit">Update category</button>
   </form>

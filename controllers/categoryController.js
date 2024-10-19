@@ -27,10 +27,13 @@ async function updateGet(req, res) {
 }
 
 async function updatePostRedirect(req, res) {
-  const { id } = req.params;
-  const { name } = req.body;
+  const category = req.body;
 
-  res.redirect(`/category_confirm/update/${id}/${name}`);
+  const queryString = `category=${encodeURIComponent(
+    JSON.stringify(category)
+  )}`;
+
+  res.redirect(`/category_confirm/update/?${queryString}`);
 }
 
 async function updatePost(req, res) {
@@ -43,9 +46,13 @@ async function updatePost(req, res) {
 }
 
 async function deleteGetRedirect(req, res) {
-  const { id, name } = req.params;
+  const category = req.query;
 
-  res.redirect(`/category_confirm/delete/${id}/${name}`);
+  const queryString = `category=${encodeURIComponent(
+    JSON.stringify(category)
+  )}`;
+
+  res.redirect(`/category_confirm/delete/?${queryString}`);
 }
 
 async function deletePost(req, res) {
