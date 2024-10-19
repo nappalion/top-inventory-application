@@ -8,6 +8,13 @@
   <body>
     <a href="/">Back</a>
     <h1>Create item</h1>
+    <% if (locals.errors) { %>
+      <ul>
+        <% errors.forEach(function(error) { %>
+          <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
+    <% } %>
     <form action="/item/create" method="POST" enctype="multipart/form-data">
       <label for="name">Name</label>
       <input type="text" id="name" name="name" required/>
